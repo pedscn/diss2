@@ -1,0 +1,191 @@
+%%%%%%%%%%%%%%%%%%%%%%%%
+%% Sample use of the infthesis class to prepare a thesis. This can be used as 
+%% a template to produce your own thesis.
+%%
+%% The title, abstract and so on are taken from Martin Reddy's csthesis class
+%% documentation.
+%%
+%% MEF, October 2002
+%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%
+%% Load the class. Put any options that you want here (see the documentation
+%% for the list of options). The following are samples for each type of
+%% thesis:
+%%
+%% Note: you can also specify any of the following options:
+%%  logo: put a University of Edinburgh logo onto the title page
+%%  frontabs: put the abstract onto the title page
+%%  deptreport: produce a title page that fits into a Computer Science
+%%      departmental cover [not sure if this actually works]
+%%  singlespacing, fullspacing, doublespacing: choose line spacing
+%%  oneside, twoside: specify a one-sided or two-sided thesis
+%%  10pt, 11pt, 12pt: choose a font size
+%%  centrechapter, leftchapter, rightchapter: alignment of chapter headings
+%%  sansheadings, normalheadings: headings and captions in sans-serif
+%%      (default) or in the same font as the rest of the thesis
+%%  [no]listsintoc: put list of figures/tables in table of contents (default:
+%%      not)
+%%  romanprepages, plainprepages: number the preliminary pages with Roman
+%%      numerals (default) or consecutively with the rest of the thesis
+%%  parskip: don't indent paragraphs, put a blank line between instead
+%%  abbrevs: define a list of useful abbreviations (see documentation)
+%%  draft: produce a single-spaced, double-sided thesis with narrow margins
+%%
+%% For a PhD thesis -- you must also specify a research institute:
+% \documentclass[ug,inf,twoside]{infthesis}
+
+%% For an MPhil thesis -- also needs an institute
+% \documentclass[mphil,ianc]{infthesis}
+
+%% MSc by Research, which also needs an institute
+% \documentclass[mscres,irr]{infthesis}
+
+%% Taught MSc -- specify a particular degree instead. If none is specified,
+%% "MSc in Informatics" is used.
+% \documentclass[msc,cogsci]{infthesis}
+% \documentclass[msc]{infthesis}  % for the MSc in Informatics
+
+%% Master of Informatics (5 year degree)
+% \documentclass[minf]{infthesis}
+
+%% Undergraduate project -- specify the degree course and project type
+%% separately
+\documentclass[bsc]{infthesis}
+\course{Computer Science with Management}
+\project{Fourth Year Project Report}
+
+%% Put any \usepackage commands you want to use right here; the following is 
+%% an example:
+\usepackage [english]{babel}
+\usepackage [autostyle, english = american]{csquotes}
+\MakeOuterQuote{"}
+\usepackage[titletoc]{appendix}
+\usepackage[notocbib]{apacite} 
+\usepackage[export]{adjustbox}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{listings}
+\usepackage{amsfonts}
+\usepackage{parskip}
+\usepackage{easy-todo}
+\usepackage{subcaption}
+\captionsetup{compatibility=false}
+
+\lstdefinelanguage{Kotlin}{
+  comment=[l]{//},
+  commentstyle={\color{Mulberry}\ttfamily},
+  emph={delegate, filter, first, firstOrNull, forEach, lazy, map, mapNotNull, println, return@},
+  emphstyle={\color{OrangeRed}},
+  identifierstyle=\color{black},
+  keywords={abstract, actual, as, as?, break, by, class, companion, continue, data, do, dynamic, else, enum, expect, false, final, for, fun, get, if, import, in, interface, internal, is, null, object, override, package, private, public, return, set, super, suspend, this, throw, true, try, typealias, val, var, vararg, when, where, while},
+  keywordstyle={\color{NavyBlue}\bfseries},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]",
+  morestring=[s]{"""*}{*"""},
+  ndkeywords={@Deprecated, @JvmField, @JvmName, @JvmOverloads, @JvmStatic, @JvmSynthetic, Array, Byte, Double, Float, Int, Integer, Iterable, Long, Runnable, Short, String},
+  ndkeywordstyle={\color{BurntOrange}\bfseries},
+  sensitive=true,
+  stringstyle={\color{ForestGreen}\ttfamily},
+}
+\setlist[enumerate]{label*=\arabic*.}
+\lstset{
+basicstyle=\scriptsize\sffamily\color{black},
+frame=single,
+numbers=left,
+numbersep=5pt,
+numberstyle=\tiny\color{gray},
+showspaces=false,
+showstringspaces=false,
+tabsize=1
+}
+
+\newcommand{\code}[1]{\texttt{#1}}
+\sloppy
+\def\code#1{\texttt{#1}}
+
+%% Information about the title, etc.
+\title{An Android App for Skin Lesion Tracking}
+\author{Pedro Schulze}
+
+%% If the year of submission is not the current year, uncomment this line and 
+%% specify it here:
+% \submityear{1785}
+
+%% Optionally, specify the graduation month and year:
+% \graduationdate{February 1786}
+
+%% Specify the abstract here.
+\abstract{%
+    This undergraduate thesis will present the results of my work
+}
+
+%% Now we start with the actual document.
+\begin{document}
+\pagestyle{plain}
+%% First, the preliminary pages
+\begin{preliminary}
+
+%% This creates the title page
+\maketitle
+
+%% Acknowledgements
+\begin{acknowledgements}
+Many thanks to \ldots
+\end{acknowledgements}
+
+%% Next we need to have the declaration.
+\standarddeclaration
+
+%% Finally, a dedication (this is optional -- uncomment the following line if
+%% you want one).
+% \dedication{To my mummy.}
+
+%% Create the table of contents
+\tableofcontents
+
+%% If you want a list of figures or tables, uncomment the appropriate line(s)
+%\listoffigures
+%\listoftables
+
+\end{preliminary}
+
+%%%%%%%%
+%% Include your chapter files here. See the sample chapter file for the basic
+%% format.
+\include{chapters/intro}
+\include{chapters/design}
+\include{chapters/arch}
+\include{chapters/deploy}
+\include{chapters/testing}
+\include{chapters/conclusion}
+%% ... etc ...
+
+%%%%%%%%
+%% Any appendices should go here. The appendix files should look just like the
+%% chapter files.
+%\appendix
+%\include{appendix}
+
+\begin{appendices}
+\include{appendices/survey}
+\include{appendices/consent}
+\include{appendices/pis}
+\include{appendices/sus}
+\end{appendices}
+
+%% Choose your favourite bibliography style here.
+\bibliographystyle{apacite}
+
+%% If you want the bibliography single-spaced (which is allowed), uncomment
+%% the next line.
+%\singlespace
+
+%% Specify the bibliography file. Default is thesis.bib.
+\bibliography{biblio}
+
+%% ... that's all, folks!
+\end{document}
