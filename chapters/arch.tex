@@ -6,7 +6,7 @@ This section encompasses the architecture behind the app. Each screen will inclu
 
 \subsection{App Opening and Information Screens}
 
-In android development, we use \emph{Shared Preferences} as a way of saving user's app data to be used in the future. In our implementation, we don't necessarily need a heavy use of shared preferences, as images are directly saved and scanned from storage (see Section \ref{sec:filestructure}). However, we can utilise them to save small user settings or specific variables. In the app's homescreen, we use this tool to check if the user has already completed the tutorial in the past. Observe code listing \ref{lst:infoscreens}, the code first checks if the user has just returned from another screen, selecting the right tab "front" or "back" from where the user started his action, this code is irrelevant if the app has just been opened. On lines 11-15, we make use of a boolean "TutorialDone" to track if the user has already completed the tutorial information screens, this is accomplished through the \code{getPreferences}, \code{getBoolean} and \code{putBoolean} methods.
+In android development, we use \emph{Shared Preferences} as a way of saving the user's app data to be used in the future. In our implementation, we don't necessarily need a heavy use of shared preferences, as images are directly saved and scanned from storage (see Section \ref{sec:filestructure}). However, we can utilise them to save small user settings or specific variables. In the app's homescreen, we use this tool to check if the user has already completed the tutorial in the past. Observe code listing \ref{lst:infoscreens}, the code first checks if the user has just returned from another screen, selecting the right tab "front" or "back" from where the user started their action, this code is irrelevant if the app has just been opened. On lines 11-15, we make use of a boolean "TutorialDone" to track if the user has already completed the tutorial information screens, this is accomplished through the \code{getPreferences}, \code{getBoolean} and \code{putBoolean} methods.
 
 As displayed in Figure \ref{fig:InfoDiagram}, the user can return to the body screen by completing or skipping the tutorial. Contrarily, pressing the "i" button allows the user to retake the tutorial. 
 
@@ -42,7 +42,7 @@ if (!isTutorialDone) {
     \caption{UML Activity Diagram for the Camera Activity}
     \label{fig:CameraScreen}
 \end{figure}
-To explain the implementation of the \emph{OldSpotList} and \emph{SpotImageList} activities, we first have to break down the \emph{CameraOpeningActivity} class. This class was created so that the two mentioned activitied could share the \code{createImageFile} and \code{dispatchTakePictureIntent} methods, avoiding any reduntant code. code{createImageFile()} is used for creating a temporary empty image file in storage for the image to be taken, and \code{dispatchTakePictureIntent()} starts the actual camera app to save a new picture into this image file. The code has been adapted from the Android docs \cite{androiddevelopers3}, as these methods are widely used across any Photo taking app, comments have been added for clarification.
+To explain the implementation of the \emph{OldSpotList} and \emph{SpotImageList} activities, we first have to break down the \emph{CameraOpeningActivity} class. This class was created so that the two mentioned activities could share the \code{createImageFile} and \code{dispatchTakePictureIntent} methods, avoiding any reduntant code. \code{createImageFile()} is used for creating a temporary empty image file in storage for the image to be taken, and \code{dispatchTakePictureIntent()} starts the actual camera app to save a new picture into this image file. The code has been adapted from the Android docs \cite{androiddevelopers3}, as these methods are widely used across any Photo taking app, comments have been added for clarification.
 
 Take the \emph{OldSpotList} activity as an example. The user first selects a body part. They are then presented with the list of spots from that selected body part. Once the user presses the "+" button, the \code{ dispatchTakePictureIntent()} method would be called (Code Listing ~\ref{lst:dispatchTakePictureIntent}). The spotDirectory argument contains the path of where the photo will be saved, this could be something similar to:
 \begin{verbatim}
@@ -208,7 +208,7 @@ Following the UML Diagram, the user can press the "+" button to add a new photo.
     \item Press on an image for more than 2 seconds
     \item Click the "Compare" button on the toolbar
 \end{itemize}
-Both of these options would launch the \emph{Contextual Action Bar}, this is a toolbar that substitutes the default toolbar when a specific action takes place. it allows the user to select images from the list. If exactly two images are selected, a "Compare" button lights up, indicating the user can compare the images.
+Both of these options would launch the \emph{Contextual Action Bar}, this is a toolbar that substitutes the default toolbar when a specific action takes place. It allows the user to select images from the list. If exactly two images are selected, a "Compare" button lights up, indicating the user can compare the images.
 
 \todo{Use Room/SQL again and asynchronous task justification}
 
@@ -236,13 +236,13 @@ Arrays.fill(selectedSpotBooleanList, java.lang.Boolean.FALSE)
 
 \subsection{AddSpot Screen}
 
-When the user chooses to add a new spot to a body part, he first takes a photo, he crops it to the desired dimensions, and is then redirected to this screen, the \emph{AddSpot} Activity. As shown in figure \ref{fig:AddSpot}, they are asked to input a name for this spot, displaying appropriate error messages if the name violates any of the following properties:
+When the user chooses to add a new spot to a body part, they first take a photo, crop it to the desired dimensions, and is then redirected to this screen, the \emph{AddSpot} Activity. As shown in figure \ref{fig:AddSpot}, they are asked to input a name for this spot, displaying appropriate error messages if the name violates any of the following properties:
 \begin{itemize}
     \item Spot name is not left blank
     \item Spot name is under 20 characters
     \item Spot name contains only letters and numbers
 \end{itemize}
-This ensures stability when spot folders are created in storage, as any unrecognised characters (Eg. @, !, \$) could easily cause errors. The rules were devised following advice on folder naming conventions from \cite{santaguida_2011}. If the name satisfies these conditions, the spot folder is created in storage, substituting spaces for dashes ("-") to further comply with good practices.
+This ensures stability when spot folders are created in storage, as any unrecognised characters (e.g. @, !, \$) could easily cause errors. The rules were devised following advice on folder naming conventions from \cite{santaguida_2011}. If the name satisfies these conditions, the spot folder is created in storage, substituting spaces for dashes ("-") to further comply with good practices.
 
 The algorithm in charge of this task is shown in Code Listing \ref{lst:addSpot}. Running through the algorithm; a \code{photoDirectory} string is created, populating it by replacing the "temp" text with the body side, body part, and given spot name. This is the first step to move the image file from the temporary folder into a new folder named after the new spot. Next, a directory \code{newDir} is created at this path (making sure it doesn't exist yet through the \code{exists()} command). Once the folder is created, we proceed to move the image by modifying its path with the \code{renameTo} method. We then delete the (now empty) \code{tempfolder}, as the file has been succesfully moved.
 

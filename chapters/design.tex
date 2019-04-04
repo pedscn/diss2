@@ -16,7 +16,8 @@ This chapter will describe the design decision for each of the screens that can 
 \subsection{Body Screen}
 This screen acts as the app homepage, it is the first screen displayed to the user (excluding the first time use tutorial). This screen is the result of a series of design refactors that occured within the first few weeks of development. These are explained in depth in section \ref{nav_refactor}. 
 
-The final design for the body screen is displayed in figure \ref{fig:bodyfinalscreen}. The toolbar includes an "i" button, which refers the user to the information screens (Section \ref{sec:infoscreens}). Pressing a body part button such as "Right Arm" would take the user to the Old Spot List screen (Section \ref{sec:oldspotscreen}). To switch between the front and back body perspectives, the user can simply swipe the screen or tap the "front" and "back" body tabs.
+The final design for the body screen is displayed in figure \ref{fig:bodyfinalscreen}. The toolbar includes an "i" button, which refers the user to the information screens (Section \ref{sec:infoscreens}). Pressing a body part button such as "Right Arm" would take the user to the O
+old spot list screen (Section \ref{sec:oldspotscreen}). To switch between the front and back body perspectives, the user can simply swipe the screen or tap the "front" and "back" body tabs.
 
 Designs for the actual body image changed throughout the whole duration of the project. This came as a result of beta testing, usability tests and preference tests. The evolution of the screen is displayed in figures \ref{fig:it1design}-\ref{fig:it15design}. Designs are numbered 1-5 and a short justification for each approach is included below.
 \begin{enumerate}
@@ -166,7 +167,7 @@ Ideally, the tutorial would also contain guidance on operating within the app, h
 \end{figure*}
 
 \subsection{Old Spot Screen} \label{sec:oldspotscreen}
-More accurately, this screen can be described as the screen displaying all previously added spots by the user in a selected body part. For example, if the user previously added the spots "Worrying Spot" and "Small normal spot" on his right arm, then these would be displayed in a list format on this screen. Each list item shows the spot name, a thumbnail of the spot, and the path of the spot in storage. From this screen, the user can:
+More accurately, this screen can be described as the screen displaying all previously added spots by the user in a selected body part. For example, if the user previously added the spots "Worrying Spot" and "Small normal spot" on their right arm, then these would be displayed in a list format on this screen. Each list item shows the spot name, a thumbnail of the spot, and the path of the spot in storage. From this screen, the user can:
 \begin{itemize}
 \item Add a new spot : By pressing the "+" button on the top right corner of the screen
 \item Open a previously added spot: By selecting the spot from the displayed list of spots
@@ -194,7 +195,7 @@ These successive screens are displayed on two occasions: When a user elects to a
 
 Using the Camera and uCrop API's means we are quite limited in customizing the appearance and design of these screens. The alternative would involve creating custom Activities and Screen layouts. However, this would require a very large amount of effort for a relatively low reward. Benefits would include drawing a "mask" or "frame" around the camera, so that the user knows how to better position the spot in the photo or cropping. This would also require implementing back-end storage manipulating functions for both the camera and cropping activities. On the contrary, using the APIs already provides a very flexible and user friendly UI, hence the decision was made to use these. 
 
-Once the camera is open, the user can repeatedly take photos until he is happy with the image. This is indicated through the "\checkmark" or "x" symbols. Subsequently, the cropping activity opens the image. The cropping screen allows zooming in and rotating the image, both operated by a slider at the bottom of the screen. Once again, the user can proceed to save the photo with the "\checkmark" button, or cancel the action through the "x" button. returning to the Old Spot or Spot Image List screens.
+Once the camera is open, the user can repeatedly take photos until they are happy with the image. This is indicated through the "\checkmark" or "x" symbols. Subsequently, the cropping activity opens the image. The cropping screen allows zooming in and rotating the image, both operated by a slider at the bottom of the screen. Once again, the user can proceed to save the photo with the "\checkmark" button, or cancel the action through the "x" button. This returns the app to the old spot or spot image list screens.
 
 \begin{figure*}[t!]
     \centering
@@ -218,7 +219,7 @@ This screen is used to give a name to a new spot, this name is useful to better 
 
 This screen contains a text input field to name the spot, a large preview of the photo that has just been taken, and two aligned buttons labelled "Cancel" and "Confirm". Clicking either button would take the user back to the SpotList screen. However, the confirm button would succesfully add the new spot to the list, while the cancel button deletes the image and returns to the previous spot list.
 
-To justify the final design, the advantages and disadvantages of both designs can be compared. The initial design appears to be very basic, lacking an option to cancel the process of adding the spot. The design makes little use of screen size, leaving much of the display blank and keeping the image preview small in size. This could prove to be an issue with tiny spots or low quality images. The new design in Figures \ref{subfig:newaddspotkeyboard} and \ref{subfig:newaddspotnokeyboard} addresses these issues accordingly, providing a much larger, half-screen view of the image, allowing even very small spots to be clearly visible (assuming the image has been cropped sensibly). The text entry field now has it's own container, separating more clearly the different components of the screen. Following official Android design guidelines for image positioning \cite{materialdesignimageplacement}, the image has been anchored to the top of the screen, with text right below it, this also makes the app more consistent with common image or social networking apps. Furthermore, the image and name container will always be visible even with the keyboard displayed. Lastly, a "Cancel" button gives the user flexibility to restart the spot adding process if he is unhappy with the image. This can also be done with the "$\leftarrow$" arrow button on the top left corner.
+To justify the final design, the advantages and disadvantages of both designs can be compared. The initial design appears to be very basic, lacking an option to cancel the process of adding the spot. The design makes little use of screen size, leaving much of the display blank and keeping the image preview small in size. This could prove to be an issue with tiny spots or low quality images. The new design in Figures \ref{subfig:newaddspotkeyboard} and \ref{subfig:newaddspotnokeyboard} addresses these issues accordingly, providing a much larger, half-screen view of the image, allowing even very small spots to be clearly visible (assuming the image has been cropped sensibly). The text entry field now has its own container, separating more clearly the different components of the screen. Following official Android design guidelines for image positioning \cite{materialdesignimageplacement}, the image has been anchored to the top of the screen, with text right below it, this also makes the app more consistent with common image or social networking apps. Furthermore, the image and name container will always be visible even with the keyboard displayed. Lastly, a "Cancel" button gives the user flexibility to restart the spot adding process if they are unhappy with the image. This can also be done with the "$\leftarrow$" arrow button on the top left corner.
 \clearpage
 \begin{figure*}[t!]
     \centering
@@ -254,11 +255,11 @@ To justify the final design, the advantages and disadvantages of both designs ca
 
 \subsection{Spot Image List Screen}
 
-This screen displays a list of all taken photos of a spot (Figures \ref{subfig:spotimagelist} and \ref{subfig:spotimagelistcontext}), this enables the user to compare them over time, spotting any differences in appearance. Under the toolbar, a list of images is displayed, each list item shows a thumbnail for each particular image, the name of the image, and the date on which the image was taken. The toolbar contains multiple action buttons, a back button to return to the previous screen, a "Compare" button to open the comparison contextual toolbar, and a "+" button to add a new photo to the list. Clicking on an item in the list would open a full-screen view of the image for better inspection.
+This screen displays a list of all taken photos of a spot (Figures \ref{subfig:spotimagelist} and \ref{subfig:spotimagelistcontext}), this enables the user to compare them over time, spotting any differences in appearance. Under the toolbar, a list of images is displayed. Each list item shows a thumbnail for each particular image, the name of the image, and the date on which the image was taken. The toolbar contains multiple action buttons, a back button to return to the previous screen, a "Compare" button to open the comparison contextual toolbar, and a "+" button to add a new photo to the list. Clicking on an item in the list would open a full-screen view of the image for better inspection.
 
-When the user presses the first "Compare" button, the contextual action bar opens, this enters the user into selection mode, where tapping on any of the images highlight the image, indicating it has been selected. If two images are selected, the "Compare" button lightens up, taking the user to the side-by-side comparison screen.
+When the user presses the first "Compare" button, the contextual action bar opens. This enters the user into selection mode, where tapping on any of the images highlight the image, indicating it has been selected. If two images are selected, the "Compare" button lightens up, taking the user to the side-by-side comparison screen.
 
-When it comes to displaying the list of images, alternative design decisions for selecting spots to compare will be discussed in section \ref{CompareScreenDesignSection}. However, We can justify the choice of what information is displayed on each item. The thumbnail of each image is critical for the user to know which images he is selecting to compare, the name of each image contains the "JPEG" together with the timestamp of the photo. Arguably, this format could be more user friendly by including the name of the spot, while requiring extra image renaming methods in the app implementation, it would further help in identifying images.
+When it comes to displaying the list of images, alternative design decisions for selecting spots to compare will be discussed in section \ref{CompareScreenDesignSection}. However, we can justify the choice of what information is displayed on each item. The thumbnail of each image is critical for the user to know which images they are selecting to compare, the name of each image contains the "JPEG" together with the timestamp of the photo. Arguably, this format could be more user friendly by including the name of the spot. This would require extra image renaming methods in the app implementation, but would further help the user identify images.
 
 \begin{figure*}[t!]
     \centering
@@ -280,7 +281,7 @@ When it comes to displaying the list of images, alternative design decisions for
 
 \subsection{Comparing Spots Screen} \label{CompareScreenDesignSection}
 
-The spot comparison screen (Figure \ref{fig:comparisonallfigures}) allows the user to closely inspect the differences between two previously selected images. It is the main feature that differences the app from a typical photo gallery app, also allowing the user to email both images to a doctor or user specified address.
+The spot comparison screen (Figure \ref{fig:comparisonallfigures}) allows the user to closely inspect the differences between two previously selected images. It is the main feature that differentiates the app from a typical photo gallery app, also allowing the user to email both images to a doctor or user specified address.
 
 A lot of thought was put into what the best way to compare images was. Two main approaches were considered. Figures \ref{fig:oldcompare1} and \ref{fig:oldcompare2} show the initial design, where all images are displayed in a "CarouselView", imitating a slideshow where the user can swipe left and right to compare all images. The main advantages and disadvantages of this design are highlighted below:
 \begin{itemize}
@@ -290,9 +291,9 @@ A lot of thought was put into what the best way to compare images was. Two main 
 
 On the other hand, Figures \ref{subfig:spotimagelistcontext} and \ref{fig:newcompare1secondfig} show the second (and final) design for comparing images. This approach requires images to be selected in the spot image list screen and displays them statically one above the other. Each image takes up 50\% of the screen. Thoughts about this approach:
 \begin{itemize}
-    \item \emph{Image count} - It is unlikely for users to save more than 5 images of a spot. The appeareance of spots usually takes several months or years to change. This means that the user will not necessarily need to compare \emph{all} the images of a spot, but the very first and last images would suffice.
-    \item \emph{Closer Zoom} - Loading only two images avoids any memory leaks, and removing the swipe interaction means images can take up the whole screen, enabling the user to inspect and compare the spots more easily.
-    \item \emph{Clunky feel} - Selecting spots through a selection menu can feel more cumbersome to some users.
+    \item \textbf{Image Count} - It is unlikely for users to save more than 5 images of a spot. The appeareance of spots usually takes several months or years to change. This means that the user will not necessarily need to compare \textbf{all} the images of a spot, but the very first and last images would suffice.
+    \item \textbf{Closer Zoom} - Loading only two images avoids any memory leaks, and removing the swipe interaction means images can take up the whole screen, enabling the user to inspect and compare the spots more easily.
+    \item \textbf{Clunky Feel} - Selecting spots through a selection menu can feel more cumbersome to some users.
 \end{itemize}
 
 \clearpage
@@ -329,7 +330,7 @@ On the other hand, Figures \ref{subfig:spotimagelistcontext} and \ref{fig:newcom
 \end{figure*}
 
 \subsection{Email Screen}
-This screen is used to email the compared images to a doctor or other specified email address. There is no control over the design of this screen, as the "Email" button on the comparison screen simply opens a new email on the default email app on the user's device. The app automatically attaches both selected images and inserts a template text body (Figure \ref{fig:emailscreen}). 
+This screen is used to email the compared images to a doctor or another specified email address. There is no control over the design of this screen, as the "Email" button on the comparison screen simply opens a new email on the default email app on the user's device. The app automatically attaches both selected images and inserts a template text body (Figure \ref{fig:emailscreen}). 
 
 \begin{figure}
     \includegraphics[height=10cm, center]{figures/email_android.jpg}
@@ -339,9 +340,9 @@ This screen is used to email the compared images to a doctor or other specified 
 
 \section{Interactions}
 \subsection{Navigation}
-The app's navigation overview can be observed in Figure \ref{fig:nav_graph}, to summarise the interaction between the previously described screens: The app's home screen is the front perspective of the body screen, however, if the app has never been used before, the Information Screens will be displayed, giving the user a simple introduction to the app with some background information. From the home screen, the user can click on a body part to open the Old Spot screen for that body part, this would display a list of spots. The user can either add a new spot (Starting the Camera-Crop Process) or view a spot by tapping it. Tapping takes the user to the spot image list for the selected spot, following a similar design to the old spot screen, but in this case showing all the images for a particular spot. The user can select two images to compare (as shown in the Compare Screen), or once again start the Camera-Cropping process to add a new image of the spot. In the Compare Screen, the user can also choose to email both images to a specified email address.
+The app's navigation overview can be observed in Figure \ref{fig:nav_graph}, to summarise the interaction between the previously described screens: the app's home screen is the front perspective of the body screen. However, if the app has never been used before, the Information Screens will be displayed, giving the user a simple introduction to the app with some background information. From the home screen, the user can click on a body part to open the Old Spot screen for that body part, this would display a list of spots. The user can either add a new spot (Starting the Camera-Crop Process) or view a spot by tapping it. Tapping takes the user to the spot image list for the selected spot, following a similar design to the old spot screen, but in this case showing all the images for a particular spot. The user can select two images to compare (as shown in the Compare Screen), or once again start the Camera-Cropping process to add a new image of the spot. In the Compare Screen, the user can also choose to email both images to a specified email address.
 
-As a recall from the technical requirements of the project, the goal was to develop an app that:
+As a recall from the technical requirements of the project, the goal was to develop an app with the following features:
 \begin{enumerate}
         \item The user can add and name new spots. Subsequently, the user can add new images to a spot.
         \item The user is able to compare two images of a spot on the same screen.
@@ -356,10 +357,10 @@ From a design perspective, all the core features have been accounted for, relyin
 The app's home screen and overall navigation was altered midway through the project. Initially, the app would welcome the user through a typical home screen menu. Figure \ref{fig:draft1menu} shows the layout of this home screen. The first 3 buttons would all lead to the body screen, after which either the camera or list of spots would be displayed (depending on the main menu option selected). As would seem apparent, this design is very redundant, as all three options would essentially lead the user to the same screens. This lead to re-factoring the whole design of the app, shifting towards a body interface home-screen (Figure \ref{fig:nav_graph}). From this point, actions to add spots, add photos, or compare spots had to be implemented within the \emph{OldSpotScreen} and \emph{SpotImageScreen} Activities, since the user woudn't be selecting these from the main menu. Benefits and drawbacks of this approach include:
 \begin{itemize}
     \item \textbf{Decrease redundancy} - The user doesn't have to go through the same 2 screens for every different action, saving time and delivering a more efficient interface 
-    \item \textbf{Loss of clarity} - Having a main menu with options has its merits, as the user knows exactly what action he is currently doing, preventing him from getting lost within the app. This is particularly true with older users.
+    \item \textbf{Loss of clarity} - Having a main menu with options has its merits, as the user knows exactly what action they are currently doing, preventing them from getting lost within the app. This is particularly true with older users.
     \item \textbf{Flexibility} - The user can easily switch between actions without returning to the main menu, for example, if a user wanted to add a new spot A, then  add an updated photo of a different spot B, and finally compare two images of spot B, they could easily do this by entering the different body part spot lists, without requiring the user to return to the main menu screen three times.
 \end{itemize}
-Overall, the conclusion was that the main menu design in figure \ref{fig:firstappdraft} would only be suitable if users only completed 1-2 within every app use, with this unrealistic expectation, it was decided to shift to the body home screen design.
+Overall, the conclusion was that the main menu design in figure \ref{fig:firstappdraft} would only be suitable if users only completed 1-2 within every app use. With this unrealistic expectation, it was decided to shift to the body home screen design.
 \clearpage
 \begin{figure*}[t!]
     \centering
