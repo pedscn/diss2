@@ -158,7 +158,7 @@ private fun createImageFile(spotDirectory: String): File {
 %}
 %\end{lstlisting}
 
-\subsection{Old Spot list screen}
+\subsection{Old Spot List Screen}
 
 The old spot list screen extends the abstract class \emph{CameraOpeningActivity}. The code in this activity accomplishes the following tasks (See UML Diagram in Figure \ref{fig:OldSpotList}):
 \begin{enumerate}
@@ -277,7 +277,7 @@ newSpotName: String, selectedBodySide: String, selectedBodyPart: String) {
 \end{lstlisting}
 
 \subsection{Compare Screen}
-The workflow of the Compare Screen is very straightforward. Following the UML diagram in Figure \ref{fig:CompareScreen}, once the two images are displayed, the user's only options are to go back to the image list or email the two photos. If the user wanted to email the photos, they would press the email button, at which point the default email app is initiated, automatically creating a new message with the two attachments. Once the user sends the email, the compare screen opens again, displaying a toast message.
+The workflow of the Compare Screen is very straightforward. Following the UML diagram in Figure \ref{fig:CompareScreen}, once the two images are displayed, the user's only options are to go back to the image list or email the two photos. If the user wanted to email the photos, they would press the email button, at which point the default email app is initiated, automatically creating a new message with the two attachments. Once the user sends the email, the compare screen opens again, displaying a \emph{Toast} message (short pop-up message that fades away after 2 seconds).
 
 \begin{figure}
     \includegraphics[width=1.2\textwidth, center]{figures/CompareScreen.png}
