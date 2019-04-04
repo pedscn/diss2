@@ -1,8 +1,8 @@
 \chapter{Architecture and Implementation}
 \section{Main Components}
-This section encompasses the architecture behind the app. Each screen will include information about methods and algorithms used, accompanied by Activity UML diagrams to better visualise what the code does for the user and how it interacts with the app's UI. We will also evaluate alternative approaches and a justification for the final implementation. Note that code listings only contain subsets of the code, a lot of the less "interesting" code has been omitted from the report.
+This section encompasses the architecture behind the app. Each screen will include information about methods and algorithms used, accompanied by Activity UML diagrams to better visualise what the code does for the user and how it interacts with the app's UI. Note that code listings only contain subsets of the code, a lot of the less "interesting" code has been omitted from the report.
 
-\todo{Add paragraph with citations about the android environment, relevant libraries, conventions}
+The language of choice is \emph{Kotlin}, the leading programming language in Android app development \cite{sagar_2019}.  Kotlin is a fully Android-focused language running on the \emph{Java Virtual Machine}. It is extensively supported by \emph{Android Studio}, the official Android IDE. Both Kotlin and Android Studio have been developed by \emph{JetBrains}. For these reasons, the option of developing the app in Java was quickly dismissed. Any relevant libraries used within activities can be found in the bibliography. It might be useful to re-read Section \ref{definitionssection} for a better understanding of the technical terms used throughout this section.
 
 \subsection{App Opening and Information Screens}
 
@@ -166,9 +166,7 @@ The old spot list screen extends the abstract class \emph{CameraOpeningActivity}
     \item Display spots with thumbnails and other info in a list format
     \item Start camera automatically or after the user's button click, checking permissions accordingly
 \end{enumerate}
-To display the list of spots of a selected body part, we run the algorithm in code listing \ref{lst:retrieveSpots}. This algorithm loads old spots from storage in a fairly innefficient way. It scans through directories and reads every spot name and path repeatedly. It first initialises empty arrays for spotNames, spotDetails, spotPaths and thumbnails (Lines 1-4). Using the  \code{walk()}  method, it loops through every file inside the \code{../TrackYourSpot/bodypart/} directory. Setting the \code{maxDepth} parameter to 1 ensures only the top level folders inside these are read, in other words, only the spot names, but nothing inside these directories. Index 0 contains the root folder, therefore we choose to ignore it as it does not provide a spotName. Inside each of these spotName folders, we perform a 1-depth walk again, this time selecting only the file at index 1, which would contain the first image taken of a spot. We then use this image's path to display a thumbnail for each spot.
-
-\todo{Justification for using Room or SQL, async tasks? Otherwise dont comment on efficiency of the algorithm, Is there a more efficient manner? What? Does it matter here given the small number of images and small number of spots?}
+To display the list of spots of a selected body part, we run the algorithm in code listing \ref{lst:retrieveSpots}. This algorithm scans through directories and reads every spot name and path repeatedly. It first initialises empty arrays for spotNames, spotDetails, spotPaths and thumbnails (Lines 1-4). Using the  \code{walk()}  method, it loops through every file inside the \code{../TrackYourSpot/bodypart/} directory. Setting the \code{maxDepth} parameter to 1 ensures only the top level folders inside these are read, in other words, only the spot names, but nothing inside these directories. Index 0 contains the root folder, therefore we choose to ignore it as it does not provide a spotName. Inside each of these spotName folders, we perform a 1-depth walk again, this time selecting only the file at index 1, which would contain the first image taken of a spot. We then use this image's path to display a thumbnail for each spot.
 
 \clearpage
 \begin{lstlisting}[caption={Loading Old Spots}, label={lst:retrieveSpots}, language=Kotlin]
@@ -209,8 +207,6 @@ Following the UML Diagram, the user can press the "+" button to add a new photo.
     \item Click the "Compare" button on the toolbar
 \end{itemize}
 Both of these options would launch the \emph{Contextual Action Bar}, this is a toolbar that substitutes the default toolbar when a specific action takes place. It allows the user to select images from the list. If exactly two images are selected, a "Compare" button lights up, indicating the user can compare the images.
-
-\todo{Use Room/SQL again and asynchronous task justification}
 
 \begin{figure}
     \includegraphics[width=1.2\textwidth, center]{figures/SpotImageList.png}
@@ -344,7 +340,6 @@ Most mobile applications require constantly sending information from one screen 
 \end{itemize}
 An example intent can be found in Code Listing \ref{lst:intentdataflow}. In that particular example, the intent takes the user from the OldSpotList to the Addspot screen. Note how variables and intent data labels are equal. This has been done to ensure consistency across screens and make sure it is clear what every variable represents in different screens.
 
-\todo{Add justification of why not shared preferences}
 \begin{lstlisting}[caption={Intent Dataflow for the AddSpot class}, 
 label={lst:intentdataflow}, language=Kotlin]
 val intent = Intent(this, AddSpot::class.java)

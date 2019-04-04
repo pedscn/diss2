@@ -74,17 +74,11 @@ Any testers could be simply added to the tester mailing list and sent the url to
     \caption{Alpha Release APK list}
     \label{fig:alpha_releases.png}
 \end{figure}
-during the 2 weeks of alpha testing. The main functionality bugs encountered were: \todo{expand on these}
+during the 2 weeks of alpha testing. The main functionality bugs encountered were:
 \begin{itemize}
-    \item temp folder removal
-    \item Closing camera or cropping screen midway
-    \item Empty app crash, thumbnail 
-    \item automatically open camera
-\end{itemize}
-\par This stage started to reveal some UI issues that could become problematic at Beta or production level. This was to be expected, as the app's reach had substantially expanded to outside the developer's eyes. The following UI issues were discovered: \todo{expand}
-\begin{itemize}
-    \item Lack of Information Screens
-    \item Lack of Compare button
+    \item Not handling the "temp" folder or corrupt image files accordingly.
+    \item App crashes and unwanted interactions if the Camera or Cropping screens were closed through the process.
+    \item App crashes if the user deletes the only photo of a spot. 
 \end{itemize}
 
 \subsection{Beta Testing}
@@ -98,12 +92,11 @@ Once alpha stage was complete, an app release was pushed to the beta stage. This
 
 Before this point, it was crucial to properly execute both the internal and alpha testing stages, as any significant bugs or incompatibilities would have been disastrous at these early stages of an app's release. As described by \cite{joorabchi2013real}, "If users like an app, they download and start using it. If not, they delete it and move on immediately. If they really like it, they rank it high; Or if they really dislike it, they go on social media and complain. Thus, a low-quality release can have devastating consequences for mobile developers.". This quote refers to the official release of an app, but Android's user ratings are available since the beta release, and hence this milestone carries an equal responsibility.
 
-Issues discovered during beta stage include: \todo{expand}
+Issues discovered during beta stage include:
 \begin{itemize}
-    \item Deleting spot folders
-    \item Information screen text overflowing
-    \item Body label name spelling
-    \item Repeating names of body spots
+    \item Information screen text overflowing the screen on smaller devices
+    \item After an updated a typo was found in the body part labels of the \emph{OldSpotScreen}
+    \item App crashes if a spot is given the same name as a previously saved spot
 \end{itemize}
 
 \section{Preference Testing}
