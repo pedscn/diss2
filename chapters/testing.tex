@@ -1,10 +1,10 @@
 \chapter{Testing and Evaluation}
-Testing of the app was carried out in four main stages. Including both technical functionality tests and user design evaluations, they can be summarised into the following:
+Testing of the app was carried out in four main stages. Including both technical functionality tests and user design evaluations. They can be summarised into the following:
 \begin{itemize}
-    \item \textbf{Internal Testing} - Also known as "pre-alpha", this stage was carried out for both major and minor bug fixes, it prepared the app to be further tested by external testers.
-    \item \textbf{User Acceptance Testing} - This stage was used for minor bug fixes, the app was exposed to users in a controlled, private circle (alpha testers) and later to the general public in the beta stage.
+    \item \textbf{Internal Testing} - Also known as "pre-alpha", this stage was carried out for both major and minor bug fixes. It prepared the app to be further tested by external testers.
+    \item \textbf{User Acceptance Testing} - This stage was used for minor bug fixes. The app was exposed to users in a controlled, private circle (alpha testers) and later to the general public in the beta stage.
     \item \textbf{Preference Testing} - This stage took place by surveying users on their preferred interface between two different design concepts for multiple screens in the app.
-    \item \textbf{Usability Evaluation} - Usability testing involved assessing the user experience through both qualitative and quantitative measures, these included interviews, think-aloud sessions and system usability scale reports.
+    \item \textbf{Usability Evaluation} - Usability testing involved assessing the user experience through both qualitative and quantitative measures. These included interviews, think-aloud sessions and system usability scale reports.
 \end{itemize}
 
 \section{Internal Testing}
@@ -25,7 +25,14 @@ Nexus S - API 23 (Marshmallow)                           \\ \hline
 \end{tabular}
 \end{table}
 \par
-As seen by figure x, the screen sizes vary from 3.7 inches to 6.4 inches, with resolutions from 540 x 960 pixels to 1080 x 2246 pixels. This gives us a perfect range to assess how the UI adapts to different screens. This revealed a bug where small screens (smaller than 4 inches) did not display the left and right leg buttons. This was due to incorrect layout constraints in the XML file for the Body Screen. The app was also tested across different versions of the Android platform, any new Application project on Android Studio will by default target the latest Android SDK and, as of this moment, have a minimum SDK of 23 (Marshmallow). It is the developer's job to decide whether this minimum SDK version should be lowered or not, depending on compatibility issues of APIs used in the application. Without adequate testing of SDK versions, some users would be able to download the app with risk of crashes and malfunctioning.
+
+\begin{figure}
+    \includegraphics[width=1.2\textwidth, center]{figures/4devicestesting.jpg}
+    \caption{\emph{TrackYourSpot} app being tested accross different devices}
+    \label{fig:4devicestesting}
+\end{figure}
+
+As seen by Figure \ref{fig:4devicestesting}, the screen sizes vary from 3.7 inches to 6.4 inches, with resolutions from 540 x 960 pixels to 1080 x 2246 pixels. This gives us a perfect range to assess how the UI adapts to different screens. This revealed a bug where small screens (smaller than 4 inches) did not display the left and right leg buttons. This was due to incorrect layout constraints in the XML file for the Body Screen. The app was also tested across different versions of the Android platform. Any new Application project on Android Studio will by default target the latest Android SDK and, as of this moment, have a minimum SDK of 23 (Marshmallow). It is the developer's job to decide whether this minimum SDK version should be lowered or not, depending on compatibility issues of APIs used in the application. Without adequate testing of SDK versions, some users would be able to download the app with risk of crashes and malfunctioning.
 \par After multiple tests progressively lowering the SDK version, it was observed that issues started to arise with the KitKat operating system. This was expected, as the Android update documentations for APIs 19 and 21 clearly state behaviour changes for Permissions \cite{androiddevelopers}, reading from storage, or bitmap handling \cite{androiddevelopers2} . All of which are done within the app. The CameraOpeningActivity() classes were crashing due to a multitude of problems with Camera/Storage permissions, Intent data flows and File URI's. Some of these issues could be fixed by adding a simple if statement checking the current Android version of the device, for example:
 \begin{lstlisting}[caption={Checking the Android Build Version}, label={lst:checkAndroidVersion}, language=Kotlin]
 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -37,7 +44,7 @@ if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
     takePictureIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
 }
 \end{lstlisting}
-These workarounds made the app stable in some API 19 devices, such as the Google Pixel, however other same OS devices would still run into crashes, and hence it would be unwise to make the app available for these. Under less time constraints, it would be ideal to improve support for older Android versions, however as shown by Google in their publicly available distribution dashboard (Figure \ref{fig:Androidversionstats.png}). Devices with API's under 21 only account for 11.1\% of all devices, meaning our app is still available for almost 90\% of devices. At this point it was decided to set the minimumSDK to 21, and focus on other areas of the project, however, as the app's main user base will not have have up to date Android versions, the usage stats will determine whether developing the apps compatibility becomes a priority again.
+These workarounds made the app stable in some API 19 devices, such as the Google Pixel, however other same OS devices would still run into crashes, and hence it would be unwise to make the app available for these. Under less time constraints, it would be ideal to improve support for older Android versions, however as shown by Google in their publicly available distribution dashboard (Figure \ref{fig:Androidversionstats.png}). Devices with API's under 21 only account for 11.1\% of all devices, meaning our app is still available for almost 90\% of devices. At this point it was decided to set the minimumSDK to 21, and focus on other areas of the project. However, as the app's main user base will not have have up to date Android versions, the usage stats will determine whether developing the apps compatibility becomes a priority again.
 \begin{figure}
     \includegraphics[width=1.2\textwidth, center]{figures/Androidversionstats.png}
     \caption{Android Device Distribution of Platforms}
@@ -58,7 +65,7 @@ After the app was confirmed to be stable accross the range of Android versions a
     \label{fig:alpha_testers.png}
 \end{figure}
 Any testers could be simply added to the tester mailing list and sent the url to the \emph{TrackYourSpot} application to download on their devices. As Google Play Developer's console dictated, all testers were required to have gmail accounts, somewhat limiting the scale at which alpha testing could be carried out. Despite this limitation, 14 testers were selected throughout alpha testing. The group was mainly composed of penultimate and final year Computer Science students at The University of Edinburgh.
-\par It was clear that the testers's background and computer literacy would be ideal to spot any hidden or convoluted bugs that escaped Internal testing, this resulted in many small fixes and 11 updates (Figure \ref{fig:alpha_releases.png})
+\par It was clear that the testers's background and computer literacy would be ideal to spot any hidden or convoluted bugs that escaped Internal testing. This resulted in many small fixes and 11 updates (Figure \ref{fig:alpha_releases.png})
 \begin{figure}
     \includegraphics[width=1.2\textwidth, center]{figures/alpha_releases.png}
     \caption{Alpha Release APK list}
@@ -71,14 +78,14 @@ during the 2 weeks of alpha testing. The Main functionality bugs encountered wer
     \item Empty app crash, thumbnail 
     \item automatically open camera
 \end{itemize}
-\par This stage started to reveal some UI issues that could become problematic at Beta or Production level, this was to be expected, as the app's reach had substantially expanded to outside the developer's eyes. The following UI issues were discovered: \todo{expand}
+\par This stage started to reveal some UI issues that could become problematic at Beta or Production level. This was to be expected, as the app's reach had substantially expanded to outside the developer's eyes. The following UI issues were discovered: \todo{expand}
 \begin{itemize}
     \item Lack of Information Screens
     \item Lack of Compare button
 \end{itemize}
 
 \subsection{Beta Testing}
-Once alpha stage was complete, an app release was pushed to the beta stage, this proved to be a significant milestone for the project, as in an Android application development context, the app was now fully available to the public. Android apps in beta stage are fully available to everyone (likewise to a production-level finished app), with the difference of the app having an "Unreleased" tag next to its name (Figure \ref{fig:betarelease}) and the user being able to send direct feedback to the developer. This meant the app was now ready and fully available for anyone and the project would be able to receive feedback and reviews from anonymous people. 
+Once alpha stage was complete, an app release was pushed to the beta stage. This proved to be a significant milestone for the project, as in an Android application development context, the app was now fully available to the public. Android apps in beta stage are fully available to everyone (likewise to a production-level finished app), with the difference of the app having an "Unreleased" tag next to its name (Figure \ref{fig:betarelease}) and the user being able to send direct feedback to the developer. This meant the app was now ready and fully available for anyone and the project would be able to receive feedback and reviews from anonymous people. 
 
 \begin{figure}[H]
     \includegraphics[width=1.2\textwidth, center]{figures/betarelease.png}
@@ -99,22 +106,22 @@ Issues discovered during beta stage include: \todo{expand}
 \section{Preference Testing}
 An initial plan was made to carry out \emph{A/B Testing} with multiple app design options. The process can be defined as randomly assigning users into segments, displaying a different design variant to each and comparing them based on "Metrics of interest, ranging from runtime performance to implicit and explicit user behaviors and survey data" \cite{kohavi2009controlled}. This could be neatly done in parallel with the think-aloud study, however, as the project developed, it was clear that there were limitations and constraints to taking this approach:
 \begin{itemize}
-    \item \textbf{Nature of design screens being assessed} - The main design features being assessed were trivial visual or appearance changes on a single screen, these ranged from a choice of colours to button visibility and/or position. If the design decisions being assessed significantly changed how a core task is carried out, such as adding or comparing a spot, then completing A/B tests would make more sense.
+    \item \textbf{Nature of design screens being assessed} - The main design features being assessed were trivial visual or appearance changes on a single screen. These ranged from a choice of colours to button visibility and/or position. If the design decisions being assessed significantly changed how a core task is carried out, such as adding or comparing a spot, then completing A/B tests would make more sense.
     \item \textbf{Response sample size} - Due to the limited availability of elderly candidates (Over 50 years old) for the think aloud study, the results for design choices would be more biased towards the younger users which were participating in the study, therefore not giving an accurate representation of the superior design in the eyes of more realistic end users (older individuals).
 \end{itemize}
 The factors above suggested that trading part of the study's formality for more plentiful results and statistics would be beneficial. This incited to take a more general approach, arriving at the concept of \emph{Preference Testing}. In psychology, a preference test can be defined as an analysis where consumers are asked to express a preference between rival products \cite{m.s._2015}. In the area of software design, we can translate it to presenting users with multiple visual designs to determine which one they prefer and why. This was done through the method of an online questionnaire. Reasons for this include:
 \begin{itemize}
     \item \textbf{Statistics analysis} - Availability of predefined statistics visualization, filtering, and analysis tools for design preference questions. A straightforward comparison of designs can be done by measuring preference votes. 
-    \item \textbf{Time and participation numbers} - Once the survey's final version was complete, it was evidently easy to share and collect responses, the survey would take 2 minutes to complete and ensure a much higher volume of opinions was collected.
+    \item \textbf{Time and participation numbers} - Once the survey's final version was complete, it was evidently easy to share and collect responses. The survey would take 2 minutes to complete and ensure a much higher volume of opinions was collected.
     \item \textbf{Qualitative Feedback} - Allowing for both open ended and inclusion of demographic questions would provide useful data in terms of why users prefer design A/B.
 \end{itemize}
-The questionnaire form can be found in Appendix A. The choice of questions has been carefully chosen after an initial pilot survey had been designed. This initial design was lacking background information on the project, in addition, the questions weren't always clear and often had ambiguous choices or answers. The reliability of the survey was evaluated, putting particular emphasis on whether the questions being asked were actually understood, following the advice of using very simple language and avoiding little-known words \cite{gendall1998framework}. Open ended questions were kept to a minimum and Likert-type answer scales \cite{boone2012analyzing} were used.
+The questionnaire form can be found in Appendix A. The choice of questions has been carefully chosen after an initial pilot survey had been designed. This initial design was lacking background information on the project. In addition, the questions weren't always clear and often had ambiguous choices or answers. The reliability of the survey was evaluated, putting particular emphasis on whether the questions being asked were actually understood, following the advice of using very simple language and avoiding little-known words \cite{gendall1998framework}. Open ended questions were kept to a minimum and Likert-type answer scales \cite{boone2012analyzing} were used.
 
 \subsection{Results}
 The survey was circulated through the 4th year undergraduate Informatics group, varied groups on social networks and friends and family of everyone involved in the project. As a result, a total of 46 responses were collected. Figures \ref{fig:surveyresult1} - \ref{fig:surveyresult8} show answers to both demographic and design questions in different charts. We can analyse the results below:
 \begin{enumerate}
     \item \textbf{Please specify your age}
-    \\ Over 2/3 of the survey participants were between the ages of 18 and 30. This is far from ideal, as the app's target audience is the middle-aged to older population. One of the biggest challenges of the project's testing and evaluation stage was collecting data from older users, this is clearly shown by this data. Nonetheless, 32.61\% of the responses were from people over the age of 30. This combination of figures should provide some interesting answers to the rest of the survey and make an attempt at balancing answers across all age groups. 
+    \\ Over 2/3 of the survey participants were between the ages of 18 and 30. This is far from ideal, as the app's target audience is the middle-aged to older population. One of the biggest challenges of the project's testing and evaluation stage was collecting data from older users. This is clearly shown by this data. Nonetheless, 32.61\% of the responses were from people over the age of 30. This combination of figures should provide some interesting answers to the rest of the survey and make an attempt at balancing answers across all age groups. 
     \item \textbf{Please specify your gender}
     \\ More than 3/4 of the answers came from the male gender, this had to be expected when the survey was circulated through a university group with male dominated demographics. However, this turned out to be an advantage for the study, as according to research by \cite{fisher2013disproportionate}, "men are 55 percent more likely to die of melanoma than women" between the ages of 15-39, converting the answers of male individuals in that age group into very valuable participants for the study.
     \item \textbf{What smartphone operating system do you regularly use?}
@@ -189,12 +196,12 @@ The individual studies are explained in-depth below. The justification and execu
 \subsection{Think-Aloud Sessions}
 The chosen study was a \emph{Concurrent Think-aloud}, where users are asked to walk through tasks and and articulate what they are doing, as opposed to a  \emph{Restrospective Think-aloud}, were they complete the tasks in silence while being recorded \cite{hanington2012universal}. The main problems with the concurrent think-aloud approach are:
 \begin{itemize}
-    \item \textbf{Unnatural feeling} - Thinking aloud while using an app often seems unnatural for users, this means they will often unconsciously leave some thoughts out, making it impossible to know everything that goes through the user's mind \cite{rubin1996handbook}.
+    \item \textbf{Unnatural feeling} - Thinking aloud while using an app often seems unnatural for users. This means they will often unconsciously leave some thoughts out, making it impossible to know everything that goes through the user's mind \cite{rubin1996handbook}.
     \item \textbf{Lack of quantitative measures} - Asking users to think aloud while using the app significantly slows down the process, making it useless to measure variables such as time taken on task. The useful data that can be collected from this study revolves around \emph{where} and \emph{why} problems exist.
 \end{itemize}
 Despite these drawbacks, the choice of this study can be justified in several ways. Firstly, the low cost of the study, as only a notepad and an Android device are needed. Secondly, a low number of participants will usually highlight most of the issues with the design being evaluated. Thirdly, the tasks being assessed were considered to be of easy-intermediate difficulty. As denoted by \cite{charters2003use}, think-aloud studies should be done with systems that require "more than an automatic response but should not be cognitively overwhelming.", hence suggesting think-aloud to be appropriate for this project.
 
-Before the study could commence, an ethics review of the study had to be submitted to the school's ethics board. Once approval was granted, participants were asked if they would like to take part in the study. Each of them would then have to agree to sign a consent form, they would also be shown an information sheet before they started the study (See Appendices B and C). \todo{Add info about participants age, number of participants and background} The think-aloud script was then read to participants. Subsequently, they were asked to carry out these four tasks one step at a time:
+Before the study could commence, an ethics review of the study had to be submitted to the school's ethics board. Once approval was granted, participants were asked if they would like to take part in the study. Each of them would then have to agree to sign a consent form, they would also be shown an information sheet before they started the study (See Appendices B and C). The think-aloud script was then read to participants. Subsequently, they were asked to carry out these four tasks one step at a time:
 \begin{enumerate}
     \item Add a new spot in your \textbf{front right arm}. Give it the name "Small spot"
     \item Add a new image to the previously created spot "Small spot"
@@ -202,7 +209,6 @@ Before the study could commence, an ethics review of the study had to be submitt
     \item Without exiting the \emph{TrackYourSpot} app, email two images of the previously added "Small spot" to the following address: trackspotandroid@gmail.com
 \end{enumerate}
 While carrying out these tasks, the device's sound recorded app was used in the background, this allowed for audio files to be revisited at a later stage. Participants were constantly reminded to talk out loud, while the researcher took notes of their comments and behaviour. The researcher was not allowed to answer any questions and the participant had to decide when they believed a task was complete. Each instance of the study would take between 20-30 minutes on average.
-\todo{Add picture of think aloud}
 
 \subsection{System Usability Scale}
 To achieve a quantitative measure of usability for the app, the \emph{System Usability Scale} was used. As John Brooke describes it \cite{brooke1996sus}, it is "robust and reliable", and a powerful evaluation tool that "correlates well with other subjective measures of usability". The SUS form used in question can be found in Appendix D. This form was presented to participants after their participation on the think-aloud study. The effectiveness of this evaluation method relies on the participant having fresh memory of the tasks and features of the app.
@@ -231,7 +237,7 @@ The interview followed a \emph{semi-structured} type design, where the set of qu
 \subsection{Results}
 A total of 9 participants agreed to take part in the study. The feedback collected from the first few participants was particularly insightful, after that, the value of the study started diminishing as users started to point out the same issues over and over again. At this point, it was decided to not continue the study, but perhaps repeat it in the future once the issues have been addressed. All 9 participants agreed to take part in the study. This involved signing the consent form, participating in the Think-Aloud and Interview stages, and finally filling in the System Usability Scale Form. We will analyse the results of these studies individually.
 
-In the case of the Think Aloud study, the analysis of the data was done by listening to the recordings and reviewing the notes taken at each experiment. Both of these were analyzed to determine if there were any patterns in how users interacted with the app, this consisted of the problems where users got stuck on or how they went about solving problems. The main issues highlighted for each task were:
+In the case of the Think Aloud study, the analysis of the data was done by listening to the recordings and reviewing the notes taken at each experiment. Both of these were analyzed to determine if there were any patterns in how users interacted with the app. This consisted of the problems where users got stuck on or how they went about solving problems. The main issues highlighted for each task were:
 \begin{enumerate}
     \item \textbf{Add a new spot in your front right arm. Give it the name "Small spot"}
     \\ Users found this task relatively straightforward, they clicked on the right arm straight away, proceeded to take a photo of a spot and crop it, knowing they completed the task when returning to the main menu. Occasionally the participant would add the button to the back "Right Arm" instead, quickly realising he hadn't paid enough attention to the task. Participants commented on the clarity of the UI while completing this task. As a small issue, some participants appeared to not zoom in enough when cropping the photo, this would make the spot harder to inspect when comparing it on task 4.

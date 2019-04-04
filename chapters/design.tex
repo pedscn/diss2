@@ -24,7 +24,7 @@ Designs for the actual body image changed throughout the whole duration of the p
     \item Design Iteration 2 - Due to limited artistic skills, a decision was made to find an external source for the body images. After browsing through the iStock photo library (Service offering copyright free images), this body outline was chosen. It provided a back and front side perspective with a simple, clean look. Consent was requested through the university's image graphic design department.
     \item Design Iteration 3 - Getting closer to the final design, the changes to this design had the goal of making the image and app more gender neutral, this was done by widening the hips and removing the pectoral marks. This process required learning and using \emph{Inkscape} (Vector graphics editor).
     \item Design Iteration 4 - It was decided to add some indication of where the app separates body parts, this would become important if the buttons were hidden, and it would make it even more clear that spots are saved under different body parts.
-    \item Design Iteration 5 - At this stage, there was the idea of adding color to the different body parts, indicating the separations even more, and replicating the design of the previous app \todo{Add reference to previous work}. The choice of which final design to use would be left in the hands of end-users, as shown later in section \todo{reference survey}, this would prove to be the superior and final design.
+    \item Design Iteration 5 - At this stage, there was the idea of adding color to the different body parts, indicating the separations even more, and replicating the design of an unfinished prototype app by Maunik Desai. The choice of which final design to use would be left in the hands of end-users, this would be done via usability evaluations and preference testing.
 \end{enumerate}
 
 \begin{figure*}[t!]
@@ -134,7 +134,7 @@ As the title suggests, the information screens provide some background informati
     \item Consulting a Doctor
 \end{enumerate}
 
-Ideally, the tutorial would also contain guidance on operating within the app, however, this would go against material design guidelines \todo{Insert reference}, which suggest keeping tutorial screens between 4-6 pages. A well-designed app user interface should require minimal tutorial help for the app to be used.
+Ideally, the tutorial would also contain guidance on operating within the app, however, this would go against material design guidelines \cite{onboarding}, which suggest keeping tutorial screens short. A well-designed app user interface should require minimal tutorial help for the app to be used.
 
 \clearpage
 \begin{figure*}[t!]
@@ -172,7 +172,6 @@ More accurately, this screen can be described as the screen displaying all previ
 \item Open a previously added spot: By selecting the spot from the displayed list of spots
 \item Return to the body screen: By pressing the "$\leftarrow$" arrow button on the top left corner of the screen
 \end{itemize}
-\todo{add justification}
 
 \begin{figure*}[t!]
     \centering
@@ -283,13 +282,13 @@ When it comes to displaying the list of images, alternative design decisions for
 
 The spot comparison screen (Figure \ref{fig:comparisonallfigures}) allows the user to closely inspect the differences between two previously selected images. It is the main feature that differences the app from a typical photo gallery app, also allowing the user to email both images to a doctor or user specified address.
 
-A lot of thought was put into what the best way to compare images was, two main approaches were considered. Figures \ref{fig:oldcompare1} and \ref{fig:oldcompare2} show the initial design, where all images are displayed in a "CarouselView", imitating a slideshow where the user can swipe left and right to compare all images. The main advantages and disadvantages of this design are highlighted below:
+A lot of thought was put into what the best way to compare images was. Two main approaches were considered. Figures \ref{fig:oldcompare1} and \ref{fig:oldcompare2} show the initial design, where all images are displayed in a "CarouselView", imitating a slideshow where the user can swipe left and right to compare all images. The main advantages and disadvantages of this design are highlighted below:
 \begin{itemize}
     \item \emph{Smooth and Convenient} - Comparing images through swiping feels intuitive and natural to users.
     \item \emph{Memory Loss} - Continually loading all images of a spot can quickly exhaust the app's memory budget \cite{handlingbitmaps}. With certain older devices, issues still arise even after using efficient bitmap decoding libraries such as \emph{Glide}.
 \end{itemize}
 
-On the other hand, Figures \ref{subfig:spotimagelistcontext} and \ref{fig:newcompare1secondfig} show the second (and final) design for comparing images, this approach requires images to be selected in the spot image list screen and displays them statically one above the other. Each image takes up 50\% of the screen. Thoughts about this approach:
+On the other hand, Figures \ref{subfig:spotimagelistcontext} and \ref{fig:newcompare1secondfig} show the second (and final) design for comparing images. This approach requires images to be selected in the spot image list screen and displays them statically one above the other. Each image takes up 50\% of the screen. Thoughts about this approach:
 \begin{itemize}
     \item \emph{Image count} - It is unlikely for users to save more than 5 images of a spot. The appeareance of spots usually takes several months or years to change. This means that the user will not necessarily need to compare \emph{all} the images of a spot, but the very first and last images would suffice.
     \item \emph{Closer Zoom} - Loading only two images avoids any memory leaks, and removing the swipe interaction means images can take up the whole screen, enabling the user to inspect and compare the spots more easily.
@@ -330,7 +329,7 @@ On the other hand, Figures \ref{subfig:spotimagelistcontext} and \ref{fig:newcom
 \end{figure*}
 
 \subsection{Email Screen}
-This screen is used to email the compared images to a doctor or other specified email address, there is no control over the design of this screen, as the "Email" button on the comparison screen simply opens a new email on the default email app on the user's device. The app automatically attaches both selected images and inserts a template text body (Figure \ref{fig:emailscreen}). 
+This screen is used to email the compared images to a doctor or other specified email address. There is no control over the design of this screen, as the "Email" button on the comparison screen simply opens a new email on the default email app on the user's device. The app automatically attaches both selected images and inserts a template text body (Figure \ref{fig:emailscreen}). 
 
 \begin{figure}
     \includegraphics[height=10cm, center]{figures/email_android.jpg}
@@ -344,7 +343,7 @@ The app's navigation overview can be observed in Figure \ref{fig:nav_graph}, to 
 
 As a recall from the technical requirements of the project, the goal was to develop an app that:
 \begin{enumerate}
-        \item The user can add and name new spots, subsequently, the user can add new images to a spot.
+        \item The user can add and name new spots. Subsequently, the user can add new images to a spot.
         \item The user is able to compare two images of a spot on the same screen.
         \item The ability to email both pictures to a doctor from within the app.
         \item Educational information screens towards skin cancer signs and usage of the app.
@@ -354,11 +353,11 @@ From a design perspective, all the core features have been accounted for, relyin
 \subsection{Navigation Redesign}
 \label{nav_refactor}
 
-The app's home screen and overall navigation was altered midway through the project. Initially, the app would welcome the user through a typical home screen menu, this followed the design from previous work \todo{insert reference to previous app}. Figure \ref{fig:draft1menu} shows the layout of this home screen. The first 3 buttons would all lead to the body screen, after which either the camera or list of spots would be displayed (depending on the main menu option selected). As would seem apparent, this design is very redundant, as all three options would essentially lead the user to the same screens. This lead to re-factoring the whole design of the app, shifting towards a body interface home-screen (Figure \ref{fig:nav_graph}). From this point, actions to add spots, add photos, or compare spots had to be implemented within the \emph{OldSpotScreen} and \emph{SpotImageScreen} Activities, since the user woudn't be selecting these from the main menu. Benefits and drawbacks of this approach include:
+The app's home screen and overall navigation was altered midway through the project. Initially, the app would welcome the user through a typical home screen menu. Figure \ref{fig:draft1menu} shows the layout of this home screen. The first 3 buttons would all lead to the body screen, after which either the camera or list of spots would be displayed (depending on the main menu option selected). As would seem apparent, this design is very redundant, as all three options would essentially lead the user to the same screens. This lead to re-factoring the whole design of the app, shifting towards a body interface home-screen (Figure \ref{fig:nav_graph}). From this point, actions to add spots, add photos, or compare spots had to be implemented within the \emph{OldSpotScreen} and \emph{SpotImageScreen} Activities, since the user woudn't be selecting these from the main menu. Benefits and drawbacks of this approach include:
 \begin{itemize}
     \item \textbf{Decrease redundancy} - The user doesn't have to go through the same 2 screens for every different action, saving time and delivering a more efficient interface 
     \item \textbf{Loss of clarity} - Having a main menu with options has its merits, as the user knows exactly what action he is currently doing, preventing him from getting lost within the app. This is particularly true with older users.
-    \item \textbf{Flexibility} - The user can easily switch between actions without returning to the main menu, for example, if a user wanted to add a new spot A, then  add an updated photo of a different spot B, and finally compare two images of spot B, he could easily do this by entering the different body part spot lists, without requiring the user to return to the main menu screen three times.
+    \item \textbf{Flexibility} - The user can easily switch between actions without returning to the main menu, for example, if a user wanted to add a new spot A, then  add an updated photo of a different spot B, and finally compare two images of spot B, they could easily do this by entering the different body part spot lists, without requiring the user to return to the main menu screen three times.
 \end{itemize}
 Overall, the conclusion was that the main menu design in figure \ref{fig:firstappdraft} would only be suitable if users only completed 1-2 within every app use, with this unrealistic expectation, it was decided to shift to the body home screen design.
 \clearpage
@@ -380,6 +379,11 @@ Overall, the conclusion was that the main menu design in figure \ref{fig:firstap
     \label{fig:firstappdraft}
 \end{figure*}
 \clearpage
+\todo{1) second camera screen goes to crop, but not add spot. Better to show it.
+2) add arcs from Add Spot, 2nd crop, and email, and compare back to body screen
+(or wherever they go).
+3) Add 'Back' arcs to all relevant places.
+4) Add labels to the arcs based on the button clicked.}
 \begin{figure}
     \includegraphics[width=1.2\textwidth, center]{figures/nav_graph.png}
     \caption{Navigation Graph}

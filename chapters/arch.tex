@@ -48,7 +48,7 @@ Take the \emph{OldSpotList} activity as an example. The user first selects a bod
 \begin{verbatim}
 /storage/emulated/0/Pictures/TrackYourSpot/front/torso/worryingspot/
 \end{verbatim}
-In line 8, the \code{createImageFile()} method first tries to create a temporary image file at the given path, it uses the current date and time to create a unique timestamp string (Code Listing ~\ref{lst:createImageFile}), this ensures no two images will have the same name. Next, the method checks if the spotDirectory path exists in storage, creating them through the \code{mkdirs()} method if needed. Once we have the directory, it creates the temporary file by concatenating the "JPEG\textunderscore" prefix, the timestamp, and the ".jpg" file extension. Back to the \code{dispatchTakePictureIntent} method, we need to find the \emph{URI} of the photoFile. The URI variable is passed on to the Intent in charge of starting up the Camera. For compatibility reasons, we have to check the device's Android version, as SDKs older than Lollipop require a different way of attaching intent data to the camera intent.
+In line 8, the \code{createImageFile()} method first tries to create a temporary image file at the given path. It uses the current date and time to create a unique timestamp string (Code Listing ~\ref{lst:createImageFile}). This ensures no two images will have the same name. Next, the method checks if the spotDirectory path exists in storage, creating them through the \code{mkdirs()} method if needed. Once we have the directory, it creates the temporary file by concatenating the "JPEG\textunderscore" prefix, the timestamp, and the ".jpg" file extension. Back to the \code{dispatchTakePictureIntent} method, we need to find the \emph{URI} of the photoFile. The URI variable is passed on to the Intent in charge of starting up the Camera. For compatibility reasons, we have to check the device's Android version, as SDKs older than Lollipop require a different way of attaching intent data to the camera intent.
 
 To see how this code interacts with the app's UI and navigation screens, take a look at Figure \ref{fig:CameraScreen}. The diagram also shows the paths the app takes if the user cancels the camera or cropping processes midway through. Since the camera process is based around temporary image files, these have to be dealt with accordingly.
 
@@ -166,9 +166,9 @@ The old spot list screen extends the abstract class \emph{CameraOpeningActivity}
     \item Display spots with thumbnails and other info in a list format
     \item Start camera automatically or after the user's button click, checking permissions accordingly
 \end{enumerate}
-To display the list of spots of a selected body part, we run the algorithm in code listing \ref{lst:retrieveSpots}, this algorithm loads old spots from storage in a fairly innefficient way. It scans through directories and reads every spot name and path repeatedly. It first initialises empty arrays for spotNames, spotDetails, spotPaths and thumbnails (Lines 1-4). Using the  \code{walk()}  method, it loops through every file inside the \code{../TrackYourSpot/bodypart/} directory. Setting the \code{maxDepth} parameter to 1 ensures only the top level folders inside these are read, in other words, only the spot names, but nothing inside these directories. Index 0 contains the root folder, therefore we choose to ignore it as it does not provide a spotName. Inside each of these spotName folders, we perform a 1-depth walk again, this time selecting only the file at index 1, which would contain the first image taken of a spot. We then use this image's path to display a thumbnail for each spot.
+To display the list of spots of a selected body part, we run the algorithm in code listing \ref{lst:retrieveSpots}. This algorithm loads old spots from storage in a fairly innefficient way. It scans through directories and reads every spot name and path repeatedly. It first initialises empty arrays for spotNames, spotDetails, spotPaths and thumbnails (Lines 1-4). Using the  \code{walk()}  method, it loops through every file inside the \code{../TrackYourSpot/bodypart/} directory. Setting the \code{maxDepth} parameter to 1 ensures only the top level folders inside these are read, in other words, only the spot names, but nothing inside these directories. Index 0 contains the root folder, therefore we choose to ignore it as it does not provide a spotName. Inside each of these spotName folders, we perform a 1-depth walk again, this time selecting only the file at index 1, which would contain the first image taken of a spot. We then use this image's path to display a thumbnail for each spot.
 
-\todo{Justification for using Room or SQL, async tasks?}
+\todo{Justification for using Room or SQL, async tasks? Otherwise dont comment on efficiency of the algorithm, Is there a more efficient manner? What? Does it matter here given the small number of images and small number of spots?}
 
 \clearpage
 \begin{lstlisting}[caption={Loading Old Spots}, label={lst:retrieveSpots}, language=Kotlin]
@@ -201,9 +201,9 @@ File(spotListDirectory).walk().maxDepth(1).forEachIndexed { index, file ->
 
 \subsection{Spot Image List}
 
-This activity also extends the CameraOpeningActivity class, similarly to the OldSpotScreen, this screen also makes use of the camera when a user elects to add a new photo of an existing spot. Figure \ref{fig:SpotImageList} depicts the process of the opening the screen, with the different paths available to the user. When the user opens the Spot Image List of a particular spot, all the photos of a spot are read from storage, this algorithm is displayed in Code Listing \ref{lst:loadingspotimages}. In a similar way to the algorithm in Code Listing \ref{lst:retrieveSpots}, spots are first loaded from storage with the \code{walk()} method, this creates a list of \code{imageFiles}, each of which we decode into an image path and thumbnail. We also initialise an array \code{selectedSpotBooleanList} to keep track of which images are being selected by the user (to compare).
+This activity also extends the CameraOpeningActivity class, similarly to the \emph{OldSpotScreen}. This screen also makes use of the camera when a user elects to add a new photo of an existing spot. Figure \ref{fig:SpotImageList} depicts the process of the opening the screen, with the different paths available to the user. When the user opens the Spot Image List of a particular spot, all the photos of a spot are read from storage. This algorithm is displayed in Code Listing \ref{lst:loadingspotimages}. In a similar way to the algorithm in Code Listing \ref{lst:retrieveSpots}, spots are first loaded from storage with the \code{walk()} method. This creates a list of \code{imageFiles}, each of which we decode into an image path and thumbnail. We also initialise an array \code{selectedSpotBooleanList} to keep track of which images are being selected by the user (to compare).
 
-Following the UML Diagram, the user can press the "+" button to add a new photo, if the goal is to compare two images, the user can either:
+Following the UML Diagram, the user can press the "+" button to add a new photo. If the goal is to compare two images, the user can either:
 \begin{itemize}
     \item Press on an image for more than 2 seconds
     \item Click the "Compare" button on the toolbar
@@ -277,7 +277,7 @@ newSpotName: String, selectedBodySide: String, selectedBodyPart: String) {
 \end{lstlisting}
 
 \subsection{Compare Screen}
-The workflow of the Compare Screen is very straightforward, following the UML diagram in Figure \ref{fig:CompareScreen}, once the two images are displayed, the user's only options are to go back to the image list or email the two photos. If the user wanted to email the photos, he would press the email button, at which point the default email app is initiated, automatically creating a new message with the two attachments. Once the user sends the email, the compare screen opens again, displaying a toast message.
+The workflow of the Compare Screen is very straightforward. Following the UML diagram in Figure \ref{fig:CompareScreen}, once the two images are displayed, the user's only options are to go back to the image list or email the two photos. If the user wanted to email the photos, they would press the email button, at which point the default email app is initiated, automatically creating a new message with the two attachments. Once the user sends the email, the compare screen opens again, displaying a toast message.
 
 \begin{figure}
     \includegraphics[width=1.2\textwidth, center]{figures/CompareScreen.png}
@@ -342,7 +342,7 @@ Most mobile applications require constantly sending information from one screen 
     \item \textbf{spotImageName} - File name of a particular image such as "JPEG\_20190113\_133157.jpg"
     \item \textbf{fullPhotoPath} - Full path of an image such as "/storage/emulated/0/Pictures/TrackYourSpot/front/torso/Spot1/JPEG\_20190113\_133157.jpg"
 \end{itemize}
-An example intent can be found in Code Listing \ref{lst:intentdataflow}. In that particular example, the intent takes the user from the OldSpotList to the Addspot screen. Note how variables and intent data labels are equal, this has been done to ensure consistency across screens and make sure it is clear what every variable represents in different screens.
+An example intent can be found in Code Listing \ref{lst:intentdataflow}. In that particular example, the intent takes the user from the OldSpotList to the Addspot screen. Note how variables and intent data labels are equal. This has been done to ensure consistency across screens and make sure it is clear what every variable represents in different screens.
 
 \todo{Add justification of why not shared preferences}
 \begin{lstlisting}[caption={Intent Dataflow for the AddSpot class}, 
@@ -373,4 +373,4 @@ The spotName is the user defined name given to the spot at the time of adding th
     \caption{A typical folder hierarchy showing folder layers within the user's device}
     \label{fig:filestructure.png}
 \end{figure}
-\par Another component of this file hierarchy are \code{/temp} folders, these temporary folders are only generated when pictures are not saved correctly due to the user closing the app without naming the spot, causing the spot to not be saved to the correct location.
+\par Another component of this file hierarchy are \code{/temp} folders. These temporary folders are only generated when pictures are not saved correctly due to the user closing the app without naming the spot, causing the spot to not be saved to the correct location.
