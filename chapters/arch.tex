@@ -1,12 +1,12 @@
 \chapter{Architecture and Implementation}
 \section{Main Components}
-This section encompasses the architecture behind the app. Each screen will include information about methods and algorithms used, accompanied by Activity UML diagrams to better visualise what the code does for the user and how it interacts with the app's UI. Note that code listings only contain subsets of the code, a lot of the less "interesting" code has been omitted from the report.
+This section encompasses the architecture behind the app. Each screen will include information about methods and algorithms used, accompanied by Activity UML diagrams to better visualise what the code does for the user and how it interacts with the app's UI. Note that Android's default "back" button allows the user to always return to a previous screen in the app. To avoid cluttering, obvious "back" operations have been omitted from UML diagrams. In addition, note that code listings only contain subsets of the code, a lot of the less "interesting" code has been omitted from the report.
 
 The language of choice is \emph{Kotlin}, the leading programming language in Android app development \cite{sagar_2019}.  Kotlin is a fully Android-focused language running on the \emph{Java Virtual Machine}. It is extensively supported by \emph{Android Studio}, the official Android IDE. Both Kotlin and Android Studio have been developed by \emph{JetBrains}. For these reasons, the option of developing the app in Java was quickly dismissed. Any relevant libraries used within activities can be found in the bibliography. It might be useful to re-read Section \ref{definitionssection} for a better understanding of the technical terms used throughout this section.
 
 \subsection{App Opening and Information Screens}
 
-In android development, we use \emph{Shared Preferences} as a way of saving the user's app data to be used in the future. In our implementation, we don't necessarily need a heavy use of shared preferences, as images are directly saved and scanned from storage (see Section \ref{sec:filestructure}). However, we can utilise them to save small user settings or specific variables. In the app's homescreen, we use this tool to check if the user has already completed the tutorial in the past. Observe code listing \ref{lst:infoscreens}, the code first checks if the user has just returned from another screen, selecting the right tab "front" or "back" from where the user started their action, this code is irrelevant if the app has just been opened. On lines 11-15, we make use of a boolean "TutorialDone" to track if the user has already completed the tutorial information screens, this is accomplished through the \code{getPreferences}, \code{getBoolean} and \code{putBoolean} methods.
+In Android development, we use \emph{Shared Preferences} as a way of saving the user's app data to be used in the future. In our implementation, we don't necessarily need a heavy use of shared preferences, as images are directly saved and scanned from storage (see Section \ref{sec:filestructure}). However, we can utilise them to save small user settings or specific variables. In the app's homescreen, we use this tool to check if the user has already completed the tutorial in the past. Observe code listing \ref{lst:infoscreens}, the code first checks if the user has just returned from another screen, selecting the right tab "front" or "back" from where the user started their action, this code is irrelevant if the app has just been opened. On lines 11-15, we make use of a boolean "TutorialDone" to track if the user has already completed the tutorial information screens, this is accomplished through the \code{getPreferences}, \code{getBoolean} and \code{putBoolean} methods.
 
 As displayed in Figure \ref{fig:InfoDiagram}, the user can return to the body screen by completing or skipping the tutorial. Contrarily, pressing the "i" button allows the user to retake the tutorial. 
 
@@ -42,7 +42,7 @@ if (!isTutorialDone) {
     \caption{UML Activity Diagram for the Camera Activity}
     \label{fig:CameraScreen}
 \end{figure}
-To explain the implementation of the \emph{OldSpotList} and \emph{SpotImageList} activities, we first have to break down the \emph{CameraOpeningActivity} class. This class was created so that the two mentioned activities could share the \code{createImageFile} and \code{dispatchTakePictureIntent} methods, avoiding any reduntant code. \code{createImageFile()} is used for creating a temporary empty image file in storage for the image to be taken, and \code{dispatchTakePictureIntent()} starts the actual camera app to save a new picture into this image file. The code has been adapted from the Android docs \cite{androiddevelopers3}, as these methods are widely used across any Photo taking app, comments have been added for clarification.
+To explain the implementation of the \emph{OldSpotList} and \emph{SpotImageList} activities, we first have to break down the \emph{CameraOpeningActivity} class. This class was created so that the two mentioned activities could share the \code{createImageFile} and \code{dispatchTakePictureIntent} methods, avoiding any redundant code. \code{createImageFile()} is used for creating a temporary empty image file in storage for the image to be taken, and \code{dispatchTakePictureIntent()} starts the actual camera app to save a new picture into this image file. The code has been adapted from the Android docs \cite{androiddevelopers3}, as these methods are widely used across any Photo taking app, comments have been added for clarification.
 
 Take the \emph{OldSpotList} activity as an example. The user first selects a body part. They are then presented with the list of spots from that selected body part. Once the user presses the "+" button, the \code{ dispatchTakePictureIntent()} method would be called (Code Listing ~\ref{lst:dispatchTakePictureIntent}). The spotDirectory argument contains the path of where the photo will be saved, this could be something similar to:
 \begin{verbatim}
@@ -199,7 +199,7 @@ File(spotListDirectory).walk().maxDepth(1).forEachIndexed { index, file ->
 
 \subsection{Spot Image List}
 
-This activity also extends the CameraOpeningActivity class, similarly to the \emph{OldSpotScreen}. This screen also makes use of the camera when a user elects to add a new photo of an existing spot. Figure \ref{fig:SpotImageList} depicts the process of the opening the screen, with the different paths available to the user. When the user opens the Spot Image List of a particular spot, all the photos of a spot are read from storage. This algorithm is displayed in Code Listing \ref{lst:loadingspotimages}. In a similar way to the algorithm in Code Listing \ref{lst:retrieveSpots}, spots are first loaded from storage with the \code{walk()} method. This creates a list of \code{imageFiles}, each of which we decode into an image path and thumbnail. We also initialise an array \code{selectedSpotBooleanList} to keep track of which images are being selected by the user (to compare).
+This activity also extends the CameraOpeningActivity class, similarly to the \emph{OldSpotScreen}. This screen also makes use of the camera when a user elects to add a new photo of an existing spot. Figure \ref{fig:SpotImageList} depicts the process of the opening the screen, with the different paths available to the user. When the user opens the spot image list of a particular spot, all the photos of a spot are read from storage. This algorithm is displayed in Code Listing \ref{lst:loadingspotimages}. In a similar way to the algorithm in Code Listing \ref{lst:retrieveSpots}, spots are first loaded from storage with the \code{walk()} method. This creates a list of \code{imageFiles}, each of which we decode into an image path and thumbnail. We also initialise an array \code{selectedSpotBooleanList} to keep track of which images are being selected by the user (to compare).
 
 Following the UML Diagram, the user can press the "+" button to add a new photo. If the goal is to compare two images, the user can either:
 \begin{itemize}
@@ -232,7 +232,7 @@ Arrays.fill(selectedSpotBooleanList, java.lang.Boolean.FALSE)
 
 \subsection{AddSpot Screen}
 
-When the user chooses to add a new spot to a body part, they first take a photo, crop it to the desired dimensions, and is then redirected to this screen, the \emph{AddSpot} Activity. As shown in figure \ref{fig:AddSpot}, they are asked to input a name for this spot, displaying appropriate error messages if the name violates any of the following properties:
+When the user chooses to add a new spot to a body part, they first take a photo, crop it to the desired dimensions, and is then redirected to this screen, the \emph{AddSpot} Activity. As shown in Figure \ref{fig:AddSpot}, they are asked to input a name for this spot, displaying appropriate error messages if the name violates any of the following properties:
 \begin{itemize}
     \item Spot name is not left blank
     \item Spot name is under 20 characters
@@ -240,11 +240,11 @@ When the user chooses to add a new spot to a body part, they first take a photo,
 \end{itemize}
 This ensures stability when spot folders are created in storage, as any unrecognised characters (e.g. @, !, \$) could easily cause errors. The rules were devised following advice on folder naming conventions from \cite{santaguida_2011}. If the name satisfies these conditions, the spot folder is created in storage, substituting spaces for dashes ("-") to further comply with good practices.
 
-The algorithm in charge of this task is shown in Code Listing \ref{lst:addSpot}. Running through the algorithm; a \code{photoDirectory} string is created, populating it by replacing the "temp" text with the body side, body part, and given spot name. This is the first step to move the image file from the temporary folder into a new folder named after the new spot. Next, a directory \code{newDir} is created at this path (making sure it doesn't exist yet through the \code{exists()} command). Once the folder is created, we proceed to move the image by modifying its path with the \code{renameTo} method. We then delete the (now empty) \code{tempfolder}, as the file has been succesfully moved.
+The algorithm in charge of this task is shown in Code Listing \ref{lst:addSpot}. Running through the algorithm; a \code{photoDirectory} string is created, populating it by replacing the "temp" text with the body side, body part, and given spot name. This is the first step to move the image file from the temporary folder into a new folder named after the new spot. Next, a directory \code{newDir} is created at this path (making sure it doesn't exist yet through the \code{exists()} command). Once the folder is created, we proceed to move the image by modifying its path with the \code{renameTo} method. We then delete the (now empty) \code{tempfolder}, as the file has been successfully moved.
 
 \begin{figure}
     \includegraphics[width=1.2\textwidth, center]{figures/AddSpot.png}
-    \caption{UML Activity Diagram for the AddSpot Activity}
+    \caption{UML Activity Diagram for the \emph{AddSpot} Activity}
     \label{fig:AddSpot}
 \end{figure}
 
@@ -273,11 +273,11 @@ newSpotName: String, selectedBodySide: String, selectedBodyPart: String) {
 \end{lstlisting}
 
 \subsection{Compare Screen}
-The workflow of the Compare Screen is very straightforward. Following the UML diagram in Figure \ref{fig:CompareScreen}, once the two images are displayed, the user's only options are to go back to the image list or email the two photos. If the user wanted to email the photos, they would press the email button, at which point the default email app is initiated, automatically creating a new message with the two attachments. Once the user sends the email, the compare screen opens again, displaying a \emph{Toast} message (short pop-up message that fades away after 2 seconds).
+The workflow of the compare screen is very straightforward. Following the UML diagram in Figure \ref{fig:CompareScreen}, once the two images are displayed, the user's only options are to go back to the image list or email the two photos. If the user wanted to email the photos, they would press the email button, at which point the default email app is initiated, automatically creating a new message with the two attachments. Once the user sends the email, the compare screen opens again, displaying a \emph{Toast} message (short pop-up message that fades away after 2 seconds).
 
 \begin{figure}
     \includegraphics[width=1.2\textwidth, center]{figures/CompareScreen.png}
-    \caption{UML Activity Diagram for the CompareScreen Activity}
+    \caption{UML Activity Diagram for the \emph{CompareScreen Activity}}
     \label{fig:CompareScreen}
 \end{figure}
 
@@ -338,9 +338,9 @@ Most mobile applications require constantly sending information from one screen 
     \item \textbf{spotImageName} - File name of a particular image such as "JPEG\_20190113\_133157.jpg"
     \item \textbf{fullPhotoPath} - Full path of an image such as "/storage/emulated/0/Pictures/TrackYourSpot/front/torso/Spot1/JPEG\_20190113\_133157.jpg"
 \end{itemize}
-An example intent can be found in Code Listing \ref{lst:intentdataflow}. In that particular example, the intent takes the user from the OldSpotList to the Addspot screen. Note how variables and intent data labels are equal. This has been done to ensure consistency across screens and make sure it is clear what every variable represents in different screens.
+An example intent can be found in Code Listing \ref{lst:intentdataflow}. In that particular example, the intent takes the user from the \emph{OldSpotList} to the \emph{AddSpot} screen. Note how variables and intent data labels are equal. This has been done to ensure consistency across screens and make sure it is clear what every variable represents in different screens.
 
-\begin{lstlisting}[caption={Intent Dataflow for the AddSpot class}, 
+\begin{lstlisting}[caption={Intent Dataflow for the \emph{AddSpot class}}, 
 label={lst:intentdataflow}, language=Kotlin]
 val intent = Intent(this, AddSpot::class.java)
 intent.putExtra("selectedBodySide", selectedBodySide)
@@ -359,8 +359,8 @@ This file's path can then be identified by calling the inbuilt \code{getAbsolute
 \par Once we're located inside the absolute directory, pictures in .jpg format are saved in a \code{../bodySide/bodyPart/spotName}
 folder hierarchy, where bodySide can be one of "front" or "back", bodyPart refers to the selected body part of a spot, it can take any of the following labels:
 \begin{itemize}
-    \item \textbf{Front} - Head, Torso, Rightarm, Leftarm, Rightleg, Leftleg
-    \item \textbf{Back} - Head, Back, Rightarm, Leftarm, Rightleg, Leftleg
+    \item \textbf{Front} - head, torso, rightarm, leftarm, rightleg, leftleg
+    \item \textbf{Back} - head, back, rightarm, leftarm, rightleg, leftleg
 \end{itemize}
 The spotName is the user defined name given to the spot at the time of adding the first image. Spot folders are created on demand, so the \code{../front/leftarm/worryingspot} folder will only be generated when the user takes a picture of a spot and gives it a name. Therefore, a typical folder structure could look like Figure~\ref{fig:filestructure.png}.
 \begin{figure}

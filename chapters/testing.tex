@@ -8,7 +8,7 @@ Testing of the app was carried out in four main stages. Including both technical
 \end{itemize}
 
 \section{Internal Testing}
-Once the final stages of development were completed, the internal testing phase commenced. Internal testing's main focus was around testing multiple SDK versions and particularly the minimum SDK at which the app remains stable. Other areas of focus involved testing the appearance of the UI accross different screen sizes and resolutions. This testing stage helped set up for the larger scale alpha and beta tests, as we could get a good idea of the device range we were targeting and it ensured the core features of the app were fully functional and accessible. Internal Testing took place across 10 different devices, ranging between physical devices and emulators. Table \ref{devicetable} shows the list of devices and operating systems that were tested at this stage:
+Once the final stages of development were completed, the internal testing phase commenced. Internal testing's main focus was around testing multiple SDK versions and particularly the minimum SDK at which the app remains stable. Other areas of focus involved testing the appearance of the UI across different screen sizes and resolutions. This testing stage helped set up for the larger scale alpha and beta tests, as we could get a good idea of the device range we were targeting and it ensured the core features of the app were fully functional and accessible. Internal Testing took place across 10 different devices, ranging between physical devices and emulators. Table \ref{devicetable} shows the list of devices and operating systems that were tested at this stage:
 \begin{table}[ht]
 \centering
 \begin{tabular}{|l|}
@@ -31,7 +31,7 @@ Nexus S - API 23 (Marshmallow)                           \\ \hline
 
 \begin{figure}
     \includegraphics[width=1\textwidth, center]{figures/4devicestesting.jpg}
-    \caption{\emph{TrackYourSpot} app being tested accross different devices}
+    \caption{\emph{TrackYourSpot} app being tested across different devices}
     \label{fig:4devicestesting}
 \end{figure}
 
@@ -47,7 +47,7 @@ if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
     takePictureIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
 }
 \end{lstlisting}
-These workarounds made the app stable in some API 19 devices, such as the Google Pixel, however other same OS devices would still run into crashes, and hence it would be unwise to make the app available for these. Under less time constraints, it would be ideal to improve support for older Android versions, however as shown by Google in their publicly available distribution dashboard (Figure \ref{fig:Androidversionstats.png}). Devices with API's under 21 only account for 11.1\% of all devices, meaning our app is still available for almost 90\% of devices. At this point it was decided to set the minimumSDK to 21, and focus on other areas of the project. However, as the app's main user base will not have have up to date Android versions, the usage stats will determine whether developing the apps compatibility becomes a priority again.
+These workarounds made the app stable in some API 19 devices, such as the Google Pixel, however other same OS devices would still run into crashes, and hence it would be unwise to make the app available for these. Under less time constraints, it would be ideal to improve support for older Android versions, however as shown by Google \cite{distributiondashboard} on their publicly available distribution dashboard (Figure \ref{fig:Androidversionstats.png}). Devices with API's under 21 only account for 11.1\% of all devices, meaning our app is still available for almost 90\% of devices. At this point it was decided to set the minimumSDK to 21, and focus on other areas of the project. However, as the app's main user base will not have have up to date Android versions, the usage stats will determine whether developing the apps compatibility becomes a priority again.
 \begin{figure}
     \includegraphics[width=1.2\textwidth, center]{figures/Androidversionstats.png}
     \caption{Android Device Distribution of Platforms}
@@ -61,13 +61,13 @@ User acceptance can be defined as the last stage of the software testing process
 \end{enumerate}
 These tests were smoothly supported by Google's Android Developer Console platform, allowing for easy deployment from one to another and user friendly controls to manipulate these. The two sections below will delve into the details of these, describing bugs and issues that arised in the process.
 \subsection{Alpha Testing}
-After the app was confirmed to be stable accross the range of Android versions and screen sizes in the internal testing stage, the app was published on the Google Play Store under a private url (Figure \ref{fig:alpha_testers.png}).
+After the app was confirmed to be stable across the range of Android versions and screen sizes in the internal testing stage, the app was published on the Google Play Store under a private URL (Figure \ref{fig:alpha_testers.png}).
 \begin{figure}[H]
     \includegraphics[width=1.2\textwidth, center]{figures/alpha_testers.png}
     \caption{Alpha Testing Tester selection, feedback channel and download URL}
     \label{fig:alpha_testers.png}
 \end{figure}
-Any testers could be simply added to the tester mailing list and sent the url to the \emph{TrackYourSpot} application to download on their devices. As Google Play Developer's console dictated, all testers were required to have gmail accounts, somewhat limiting the scale at which alpha testing could be carried out. Despite this limitation, 14 testers were selected throughout alpha testing. The group was mainly composed of penultimate and final year Computer Science students at The University of Edinburgh.
+Any testers could be simply added to the tester mailing list and sent the URL to the \emph{TrackYourSpot} application to download on their devices. As Google Play Developer's console dictated, all testers were required to have Gmail accounts, somewhat limiting the scale at which alpha testing could be carried out. Despite this limitation, 14 testers were selected throughout alpha testing. The group was mainly composed of penultimate and final year Computer Science students at The University of Edinburgh.
 \par It was clear that the testers's background and computer literacy would be ideal to spot any hidden or convoluted bugs that escaped Internal testing. This resulted in many small fixes and 11 updates (Figure \ref{fig:alpha_releases.png})
 \begin{figure}
     \includegraphics[width=1.2\textwidth, center]{figures/alpha_releases.png}
@@ -77,7 +77,7 @@ Any testers could be simply added to the tester mailing list and sent the url to
 during the 2 weeks of alpha testing. The main functionality bugs encountered were:
 \begin{itemize}
     \item Not handling the "temp" folder or corrupt image files accordingly.
-    \item App crashes and unwanted interactions if the Camera or Cropping screens were closed through the process.
+    \item App crashes and unwanted interactions if the Camera or Cropping screens were closed throughout the process.
     \item App crashes if the user deletes the only photo of a spot. 
 \end{itemize}
 
@@ -95,7 +95,7 @@ Before this point, it was crucial to properly execute both the internal and alph
 Issues discovered during beta stage include:
 \begin{itemize}
     \item Information screen text overflowing the screen on smaller devices
-    \item After an updated a typo was found in the body part labels of the \emph{OldSpotScreen}
+    \item After an update a typo was found in the body part labels of the \emph{OldSpotScreen}
     \item App crashes if a spot is given the same name as a previously saved spot
 \end{itemize}
 
@@ -190,7 +190,7 @@ The evaluation of the app's user design and experience was carried out through a
 \end{itemize}
 The individual studies are explained in-depth below. The justification and execution of these is emphasized, with the results of all three studies summarized at the end of the section.
 \subsection{Think-Aloud Sessions}
-The chosen study was a \emph{Concurrent Think-aloud}, where users are asked to walk through tasks and and articulate what they are doing, as opposed to a  \emph{Restrospective Think-aloud}, where they complete the tasks in silence while being recorded \cite{hanington2012universal}. The main problems with the concurrent think-aloud approach are:
+The chosen study was a \emph{Concurrent Think-aloud}, where users are asked to walk through tasks and and articulate what they are doing, as opposed to a  \emph{Retrospective Think-aloud}, where they complete the tasks in silence while being recorded \cite{hanington2012universal}. The main problems with the concurrent think-aloud approach are:
 \begin{itemize}
     \item \textbf{Unnatural feeling} - Thinking aloud while using an app often seems unnatural for users. This means they will often unconsciously leave some thoughts out, making it impossible to know everything that goes through the user's mind \cite{rubin1996handbook}.
     \item \textbf{Lack of quantitative measures} - Asking users to think aloud while using the app significantly slows down the process, making it useless to measure variables such as time taken on task. The useful data that can be collected from this study revolves around \emph{where} and \emph{why} problems exist.
@@ -242,7 +242,7 @@ In the case of the Think Aloud study, the analysis of the data was done by liste
     \item \textbf{Compare two images of the previously added "Small spot".}
     \\ The success of this task was very dependent on whether task 2 was carried out correctly, the participants that added the 2 photos correctly usually had no issues comparing them. Some participants realised they had to add another photo to be able to compare, and 1 participant required guidance to be able to complete the task. Another participant thought opening the images individually and swiping left and right was enough to compare them, and declared the task finished before actually comparing them side by side. Most participants pointed out that the compare screen was missing an option to zoom in to the images, this was particularly the case when they didn't crop the images to an adequate zoom. This suggests there could be better guidance on how to take photos. 
     \item \textbf{Without exiting the TrackYourSpot app, email two images of the previously added "Small spot" to the following address: trackspotandroid@gmail.com}
-    \\ Compared to the other tasks, this task was completed very easily, users spotted the "Email" button on the compare screen straight away and proceeded to email both photos to the address. A few participants pointed out the lack of a dialogue message to know if the email has been sent. Overall this task was completed very succesfully.
+    \\ Compared to the other tasks, this task was completed very easily, users spotted the "Email" button on the compare screen straight away and proceeded to email both photos to the address. A few participants pointed out the lack of a dialogue message to know if the email has been sent. Overall this task was completed very successfully.
 \end{enumerate}
 
 After the think-aloud study, participants were asked to fill in the SUS Form. The score for each participant was calculated individually. The overall result was positive, with the average SUS score being 73.6/100. The highest score given was 87.5 and the lowest was 55. According to the government's SUS scale interpretation guidelines \cite{affairs_2013}, results above 68 are above average, indicating there is room for improvement but nevertheless a good performance of the app in terms of usability.
@@ -264,5 +264,5 @@ Once the SUS Form was completed, users were asked a series of questions as part 
     \item \textbf{Was the website useful in helping you learn how to use the app?}
     \\ Users pointed out they only skimmed through the website, checking out the tutorial for one or perhaps two tasks. Most participants claim it wasn't particularly useful in this case because they hadn't tried the app before reading through the site. Nevertheless, they complimented the idea of having a website in case some people find it useful.
     \item \textbf{Did you find the information displayed on the information screens relevant?}
-    \\ Overall, users found the information useful, particularly mentioning the information on skin spot appeareance changes and consulting a doctor. Participants thought it was a good idea to make sure the user knows the app is not a substitute for medical attention. A few participants mentioned the tutorial could include more guidance on actually using the app.
+    \\ Overall, users found the information useful, particularly mentioning the information on skin spot appearance changes and consulting a doctor. Participants thought it was a good idea to make sure the user knows the app is not a substitute for medical attention. A few participants mentioned the tutorial could include more guidance on actually using the app.
 \end{enumerate}
