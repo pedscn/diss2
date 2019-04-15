@@ -1,4 +1,4 @@
-# dissertation-ug
+# Informatics Undergraduate Dissertation
 This repository contains the LaTeX code, figures, bibliography and pdf submitted as part of my undergraduate dissertation.
 
 ## Links
